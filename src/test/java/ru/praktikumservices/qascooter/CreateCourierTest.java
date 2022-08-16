@@ -30,14 +30,6 @@ public class CreateCourierTest {
         courierClient = new CourierClient();
     }
 
-    @After
-    public void deleteCourier(){
-        if((courier.getLogin() != null)&(courier.getPassword() != null)){
-            CourierCredentials creds = CourierCredentials.from(courier);
-            courierId = courierClient.login(creds);
-            courierClient.delete(courierId);
-        }
-    }
 
     // курьера можно создать
     // запрос возвращает правильный код ответа;

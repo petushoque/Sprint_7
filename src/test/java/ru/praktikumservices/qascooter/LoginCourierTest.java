@@ -27,11 +27,6 @@ public class LoginCourierTest {
         courierClient.create(courier);
     }
 
-    @After
-    public void deleteCourier(){
-        courierClient.delete(courierId);
-    }
-
     // курьер может авторизоваться
     // для авторизации нужно передать все обязательные поля;
     // успешный запрос возвращает id

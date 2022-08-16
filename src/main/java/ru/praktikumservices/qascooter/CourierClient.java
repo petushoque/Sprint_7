@@ -50,15 +50,4 @@ public class CourierClient extends RestAssuredClient{
                 .post(LOGIN_URL);
     }
 
-    public Response delete(int courierId){
-        return reqSpecWithoutHeaders.pathParam("courierId", courierId)
-                .when()
-                .delete(DELETE_COURIER_URL);
-    }
-
-    public Response deleteWithoutParam(){
-        return reqSpecWithoutHeaders
-                .when()
-                .delete(COURIER + "/");
-    }
 }
