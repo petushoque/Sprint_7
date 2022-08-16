@@ -1,10 +1,6 @@
 package ru.praktikumservices.qascooter;
 
-import ru.praktikumservices.qascooter.Courier;
-import ru.praktikumservices.qascooter.CourierCredentials;
 import io.restassured.response.Response;
-
-import static io.restassured.RestAssured.given;
 
 public class CourierClient extends RestAssuredClient{
 
