@@ -10,7 +10,6 @@ public class CourierClient extends RestAssuredClient{
 
     private final String COURIER = "/courier";
     private final String LOGIN_URL = COURIER + "/login";
-    private final String DELETE_COURIER_URL = COURIER + "/{courierId}";
 
 
     public boolean create(Courier courier) {

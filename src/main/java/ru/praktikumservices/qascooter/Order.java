@@ -3,7 +3,6 @@ package ru.praktikumservices.qascooter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Data
@@ -23,16 +22,15 @@ public class Order {
 
     public static Order getDefault() {
         return new Order(
-                "Илья",
-                "Зверев",
-                "Москва, ул. Ленина, д.15",
-                "Тропарево",
-                "88002347549",
-                5,
-                "2022-05-06",
-                "Комментарий",
+                "Джон",
+                "Доу",
+                "Москва, улица Воздвиженка, 3/5 ст2",
+                "Библиотека им. Ленина",
+                "88005553535",
+                3,
+                "2022-09-01",
+                "Привет, мир",
                 List.of("BLACK")
         );
-
     }
 }

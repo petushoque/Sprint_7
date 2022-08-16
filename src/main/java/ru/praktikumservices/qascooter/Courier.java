@@ -14,13 +14,11 @@ public class Courier {
     private String password;
     private String firstName;
 
-    // фабрика
     public static Courier getRandom(){
         String login = RandomStringUtils.randomAlphanumeric(10);
         String password = RandomStringUtils.randomAlphanumeric(10);
         String firstName = RandomStringUtils.randomAlphanumeric(10);
 
         return new Courier(login, password, firstName);
-
     }
 }
