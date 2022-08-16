@@ -67,7 +67,7 @@ public class CreateCourierTest {
         response.then().log().all()
                 .statusCode(409)
                 .assertThat().body("message", notNullValue())
-                .assertThat().body("message", equalTo("Этот логин уже используется"));
+                .assertThat().body("message", equalTo("Этот логин уже используется. Попробуйте другой."));
         System.out.println(response.asString());
     }
     // Дефект. Неверный текст ошибки
@@ -122,7 +122,7 @@ public class CreateCourierTest {
         response.then().log().all()
                 .statusCode(409)
                 .assertThat().body("message", notNullValue())
-                .assertThat().body("message", equalTo("Этот логин уже используется"));
+                .assertThat().body("message", equalTo("Этот логин уже используется. Попробуйте другой."));
         System.out.println(response.asString());
     }
 }

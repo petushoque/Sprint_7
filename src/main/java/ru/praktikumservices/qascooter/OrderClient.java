@@ -1,9 +1,6 @@
 package ru.praktikumservices.qascooter;
 
 import io.restassured.response.Response;
-import ru.praktikumservices.qascooter.Order;
-import ru.praktikumservices.qascooter.OrderCancelCredentials;
-import ru.praktikumservices.qascooter.OrderCredentials;
 
 import static io.restassured.RestAssured.given;
 
@@ -61,12 +58,5 @@ public class OrderClient extends RestAssuredClient{
         return reqSpecWithoutHeaders
                 .when()
                 .get(GET_ORDER_URL);
-    }
-
-    public Response cancel(OrderCancelCredentials orderCreds){
-        return reqSpec
-                .body(orderCreds)
-                .when().log().all()
-                .put(CANCEL_ORDER_URL);
     }
 }

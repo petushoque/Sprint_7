@@ -3,9 +3,6 @@ package ru.praktikumservices.qascooter;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import ru.praktikumservices.qascooter.Order;
-import ru.praktikumservices.qascooter.OrderClient;
-import ru.praktikumservices.qascooter.OrderCancelCredentials;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,12 +26,6 @@ public class CreateOrderTest {
     @Before
     public void setUp() {
         orderClient = new OrderClient();
-    }
-
-    @After
-    public void cancelOrder() {
-        OrderCancelCredentials orderCreds = new OrderCancelCredentials(track);
-        orderClient.cancel(orderCreds);
     }
 
     public CreateOrderTest(List<String> color, int expectedCode) {
