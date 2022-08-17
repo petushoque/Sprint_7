@@ -34,5 +34,4 @@ public class CourierClient extends RestAssuredClient{
                 .when()
                 .post(LOGIN_URL);
     }
-
 }

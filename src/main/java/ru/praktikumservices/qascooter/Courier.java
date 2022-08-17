@@ -15,9 +15,9 @@ public class Courier {
     private String firstName;
 
     public static Courier getRandom(){
-        String login = RandomStringUtils.randomAlphanumeric(10);
-        String password = RandomStringUtils.randomAlphanumeric(10);
-        String firstName = RandomStringUtils.randomAlphanumeric(10);
+        String login = RandomStringUtils.randomAlphanumeric(8);
+        String password = RandomStringUtils.randomAlphanumeric(8);
+        String firstName = RandomStringUtils.randomAlphanumeric(8);
 
         return new Courier(login, password, firstName);
     }
