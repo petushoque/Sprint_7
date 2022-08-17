@@ -41,7 +41,7 @@ public class LoginCourierTest {
     @Description("A test for a negative scenario, for a request with an incorrect login, the system responds with a 404 code and an error message")
     public void loginCourierWithInvalidLoginTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
-        creds.setLogin(RandomStringUtils.randomAlphanumeric(8));
+        creds.setLogin("lornemalvo");
         Response response = courierClient.postLogin(creds);
         response.then()
                 .log()
@@ -53,20 +53,22 @@ public class LoginCourierTest {
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
-    //система вернёт ошибку, если неправильно указать логин или пароль;
 
     @Test
-    @DisplayName("Check 404 status code and error message of /courier/login")
-    @Description("Login with invalid password for /courier/login endpoint")
-    public void loginCourierWithInvalidPasswordAndCheckError(){
+    @DisplayName("Check status code and error message of /courier/login: Invalid password")
+    @Description("A test for a negative scenario, for a request with an incorrect login, the system responds with a 404 code and an error message")
+    public void loginCourierWithInvalidPasswordTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
-        creds.setPassword("error");
+        creds.setPassword("wrongpassword");
         Response response = courierClient.postLogin(creds);
-        response.then().log().all()
+        response.then()
+                .log()
+                .all()
                 .statusCode(404)
-                .assertThat().body("message", notNullValue())
-                .assertThat().body("message", equalTo("Учетная запись не найдена"));
-        System.out.println("Courier didn't login. Test passed" + response.asString());
+                .assertThat()
+                .body("message", notNullValue())
+                .assertThat()
+                .body("message", equalTo("Учетная запись не найдена"));
     }
 
     //если какого-то поля нет, запрос возвращает ошибку;
