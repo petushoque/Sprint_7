@@ -1,14 +1,9 @@
 package ru.praktikumservices.qascooter;
 
-import ru.praktikumservices.qascooter.Courier;
-import ru.praktikumservices.qascooter.CourierClient;
-import ru.praktikumservices.qascooter.CourierCredentials;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +13,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 public class LoginCourierTest {
     private Courier courier;
     private CourierClient courierClient;
-    private int courierId;
 
     @Before
     public void createCourier(){
@@ -27,36 +21,36 @@ public class LoginCourierTest {
         courierClient.create(courier);
     }
 
-    // курьер может авторизоваться
-    // для авторизации нужно передать все обязательные поля;
-    // успешный запрос возвращает id
-
     @Test
-    @DisplayName("Check status code and body of /courier/login")
-    @Description("Basic test for courier/login endpoint")
-    public void loginCourierAndCheckResponse(){
+    @DisplayName("Check status code and body of /courier/login: Correct data")
+    @Description("A test for a positive scenario, a successful server response is 200, the response body contains the courier ID")
+    public void loginCourierWithCorrectDataTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
-        courierId = courierClient.login(creds);
-
-
-        Assert.assertNotEquals(0, courierId);
-        System.out.println("Courier logged successful. Test passed");
+        Response response = courierClient.postLogin(creds);
+        response.then()
+                .log()
+                .all()
+                .assertThat()
+                .statusCode(200)
+                .assertThat()
+                .body("id", notNullValue());
     }
 
-    //система вернёт ошибку, если неправильно указать логин или пароль;
-    //если авторизоваться под несуществующим пользователем, запрос возвращает ошибку;
     @Test
-    @DisplayName("Check 404 status code and error message of /courier/login")
-    @Description("Login with invalid login for /courier/login endpoint")
-    public void loginCourierWithInvalidLoginAndCheckError(){
+    @DisplayName("Check status code and error message of /courier/login: Invalid login")
+    @Description("A test for a negative scenario, for a request with an incorrect login, the system responds with a 404 code and an error message")
+    public void loginCourierWithInvalidLoginTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
         creds.setLogin(RandomStringUtils.randomAlphanumeric(8));
         Response response = courierClient.postLogin(creds);
-        response.then().log().all()
+        response.then()
+                .log()
+                .all()
                 .statusCode(404)
-                .assertThat().body("message", notNullValue())
-                .assertThat().body("message", equalTo("Учетная запись не найдена"));
-        System.out.println("Courier didn't login. Test passed" + response.asString());
+                .assertThat()
+                .body("message", notNullValue())
+                .assertThat()
+                .body("message", equalTo("Учетная запись не найдена"));
     }
 
     //система вернёт ошибку, если неправильно указать логин или пароль;

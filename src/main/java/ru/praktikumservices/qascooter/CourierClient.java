@@ -13,7 +13,9 @@ public class CourierClient extends RestAssuredClient{
                 .body(courier)
                 .when()
                 .post(COURIER)
-                .then().log().all()
+                .then()
+                .log()
+                .all()
                 .statusCode(201)
                 .extract()
                 .path("ok");
@@ -24,18 +26,6 @@ public class CourierClient extends RestAssuredClient{
                 .body(courier)
                 .when()
                 .post(COURIER);
-    }
-
-    public int login(CourierCredentials creds) {
-        return reqSpec
-                .body(creds)
-                .when()
-                .post(LOGIN_URL)
-                .then().log().all()
-                .assertThat()
-                .statusCode(200)
-                .extract()
-                .path("id");
     }
 
     public Response postLogin(CourierCredentials creds) {
