@@ -3,15 +3,12 @@ package ru.praktikumservices.qascooter;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
 import java.util.List;
-
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 @RunWith(Parameterized.class)
@@ -21,7 +18,6 @@ public class CreateOrderTest {
     private Order order;
     private final List<String> color;
     private final int expectedCode;
-    int track;
 
     @Before
     public void setUp() {
@@ -34,7 +30,7 @@ public class CreateOrderTest {
     }
 
     @Parameterized.Parameters
-    public static Object[][] createOrderWithColor() {
+    public static Object[][] testData() {
         return new Object[][]{
                 {List.of("BLACK"), 201},
                 {List.of("GREY"), 201},
@@ -43,27 +39,18 @@ public class CreateOrderTest {
         };
     }
 
-    //можно указать один из цветов — BLACK или GREY;
-    //можно указать оба цвета;
-    //можно совсем не указывать цвет;
-    //тело ответа содержит track.
-
     @Test
     @DisplayName("Check status code and body of /orders")
-    @Description("Basic test for /orders endpoint")
-    public void createNewOrderAndCheckResponse(){
+    @Description("A test for a positive scenario, a successful server response is 201, the response body contains the track number")
+    public void createOrderTest(){
         order = Order.getDefault();
         order.setColor(color);
-
         Response response = orderClient.post(order);
         response.then()
                 .statusCode(201)
-                .assertThat().body("track", notNullValue());
-        track = response.then().extract().path("track");
-        System.out.println("Response for color "+ color + " : " + response.asString());
-
+                .assertThat()
+                .body("track", notNullValue());
         int actualCode = response.statusCode();
-
         Assert.assertEquals(expectedCode, actualCode);
     }
 }
