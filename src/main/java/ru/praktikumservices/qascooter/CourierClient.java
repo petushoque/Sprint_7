@@ -21,7 +21,7 @@ public class CourierClient extends RestAssuredClient{
                 .path("ok");
     }
 
-    public Response post(Courier courier) {
+    public Response postCreate(Courier courier) {
         return reqSpec
                 .body(courier)
                 .when()
