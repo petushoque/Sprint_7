@@ -26,7 +26,13 @@ public class CreateCourierTest {
     @Description("A test for a positive scenario, a successful server response is 200, the response body contains ok: true")
     public void createNewCourierTest(){
         courier = Courier.getRandom();
-        boolean isCreated = courierClient.createCourier(courier);
+        boolean isCreated = courierClient.createCourier(courier)
+                .then()
+                .log()
+                .all()
+                .statusCode(201)
+                .extract()
+                .path("ok");
         Assert.assertTrue(isCreated);
     }
 
@@ -37,7 +43,7 @@ public class CreateCourierTest {
         Courier existedCourier = Courier.getRandom();
         courierClient.createCourier(existedCourier);
         courier = existedCourier;
-        Response response = courierClient.postCreate(courier);
+        Response response = courierClient.createCourier(courier);
         response.then()
                 .log()
                 .all()
@@ -53,7 +59,7 @@ public class CreateCourierTest {
     @Description("A test for a negative scenario, for a request with empty login, the system responds with a 400 code and an error message")
     public void createNewCourierWithoutLoginTest(){
         courier = new Courier(null, "password1", "helloworld");
-        Response response = courierClient.postCreate(courier);
+        Response response = courierClient.createCourier(courier);
         response.then()
                 .log()
                 .all()
@@ -69,7 +75,7 @@ public class CreateCourierTest {
     @Description("A test for a negative scenario, for a request with empty password, the system responds with a 400 code and an error message")
     public void createNewCourierWithoutPasswordTest(){
         courier = new Courier(UUID.randomUUID().toString(), null, "harrypotter");
-        Response response = courierClient.postCreate(courier);
+        Response response = courierClient.createCourier(courier);
         response.then()
                 .log()
                 .all()
@@ -85,7 +91,7 @@ public class CreateCourierTest {
     @Description("A test for a negative scenario, for a request with empty first name, the system responds with a 400 code and an error message")
     public void createNewCourierWithoutFirstNameTest(){
         courier = new Courier(UUID.randomUUID().toString(), "qwerty", null);
-        Response response = courierClient.postCreate(courier);
+        Response response = courierClient.createCourier(courier);
         response.then().log().all()
                 .statusCode(400)
                 .assertThat()
