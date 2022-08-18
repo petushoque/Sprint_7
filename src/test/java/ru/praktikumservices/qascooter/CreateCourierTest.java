@@ -26,7 +26,7 @@ public class CreateCourierTest {
     @Description("A test for a positive scenario, a successful server response is 200, the response body contains ok: true")
     public void createNewCourierTest(){
         courier = Courier.getRandom();
-        boolean isCreated = courierClient.create(courier);
+        boolean isCreated = courierClient.createCourier(courier);
         Assert.assertTrue(isCreated);
     }
 
@@ -35,7 +35,7 @@ public class CreateCourierTest {
     @Description("A test for a negative scenario, for a request with existing data, the system responds with a 409 code and an error message")
     public void courierAlreadyExistsTest(){
         Courier existedCourier = Courier.getRandom();
-        courierClient.create(existedCourier);
+        courierClient.createCourier(existedCourier);
         courier = existedCourier;
         Response response = courierClient.postCreate(courier);
         response.then()

@@ -8,7 +8,7 @@ public class CourierClient extends RestAssuredClient{
     private final String LOGIN_URL = COURIER + "/login";
 
 
-    public boolean create(Courier courier) {
+    public boolean createCourier(Courier courier) {
         return reqSpec
                 .body(courier)
                 .when()

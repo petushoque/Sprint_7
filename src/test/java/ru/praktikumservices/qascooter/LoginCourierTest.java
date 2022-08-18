@@ -16,7 +16,7 @@ public class LoginCourierTest {
     public void createCourier(){
         courier = Courier.getRandom();
         courierClient = new CourierClient();
-        courierClient.create(courier);
+        courierClient.createCourier(courier);
     }
 
     @Test
