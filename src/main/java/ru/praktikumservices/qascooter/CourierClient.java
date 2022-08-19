@@ -15,7 +15,7 @@ public class CourierClient extends RestAssuredClient{
                 .post(COURIER);
     }
 
-    public Response postLogin(CourierCredentials creds) {
+    public Response loginCourier(CourierCredentials creds) {
         return reqSpec
                 .body(creds)
                 .when()

@@ -25,7 +25,7 @@ public class LoginCourierTest {
     @Description("A test for a positive scenario, a successful server response is 200, the response body contains the courier ID")
     public void loginCourierWithCorrectDataTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
-        Response response = courierClient.postLogin(creds);
+        Response response = courierClient.loginCourier(creds);
         response.then()
                 .log()
                 .all()
@@ -41,7 +41,7 @@ public class LoginCourierTest {
     public void loginCourierWithInvalidLoginTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
         creds.setLogin("lornemalvo");
-        Response response = courierClient.postLogin(creds);
+        Response response = courierClient.loginCourier(creds);
         response.then()
                 .log()
                 .all()
@@ -58,7 +58,7 @@ public class LoginCourierTest {
     public void loginCourierWithInvalidPasswordTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
         creds.setPassword("wrongpassword");
-        Response response = courierClient.postLogin(creds);
+        Response response = courierClient.loginCourier(creds);
         response.then()
                 .log()
                 .all()
@@ -75,7 +75,7 @@ public class LoginCourierTest {
     public void loginCourierWithoutLoginTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
         creds.setLogin(null);
-        Response response = courierClient.postLogin(creds);
+        Response response = courierClient.loginCourier(creds);
         response.then()
                 .log()
                 .all()
@@ -92,7 +92,7 @@ public class LoginCourierTest {
     public void loginCourierWithoutPasswordTest(){
         CourierCredentials creds = CourierCredentials.from(courier);
         creds.setPassword(null);
-        Response response = courierClient.postLogin(creds);
+        Response response = courierClient.loginCourier(creds);
         response.then()
                 .log()
                 .all()
