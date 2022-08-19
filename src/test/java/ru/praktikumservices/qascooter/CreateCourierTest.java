@@ -4,6 +4,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import lombok.Data;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +17,25 @@ public class CreateCourierTest {
 
     private CourierClient courierClient;
     private Courier courier;
+    private int courierId;
 
     @Before
     public void setUp() {
         courierClient = new CourierClient();
+    }
+
+    @After
+    public void deleteCourier(){
+        if((courier.getLogin() != null)&(courier.getPassword() != null)) {
+            CourierCredentials creds = CourierCredentials.from(courier);
+            courierId = courierClient.loginCourier(creds)
+                    .then()
+                    .log()
+                    .all()
+                    .extract()
+                    .path("id");
+            courierClient.deleteCourier(courierId);
+        }
     }
 
     @Test
