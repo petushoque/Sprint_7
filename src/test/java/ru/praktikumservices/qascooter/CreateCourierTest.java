@@ -8,6 +8,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ru.praktikumservices.qascooter.clients.CourierClient;
+import ru.praktikumservices.qascooter.models.Courier;
+import ru.praktikumservices.qascooter.models.CourierCredentials;
+
 import java.util.UUID;
 import static org.hamcrest.CoreMatchers.*;
 import static org.apache.http.HttpStatus.*;

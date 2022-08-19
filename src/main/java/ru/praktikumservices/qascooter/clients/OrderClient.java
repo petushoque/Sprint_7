@@ -1,8 +1,9 @@
-package ru.praktikumservices.qascooter;
+package ru.praktikumservices.qascooter.clients;
 
 import io.restassured.response.Response;
+import ru.praktikumservices.qascooter.models.Order;
 
-public class OrderClient extends RestAssuredClient{
+public class OrderClient extends RestAssuredClient {
 
     private final String ORDER_URL = "/orders";
 

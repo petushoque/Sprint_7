@@ -1,8 +1,10 @@
-package ru.praktikumservices.qascooter;
+package ru.praktikumservices.qascooter.clients;
 
 import io.restassured.response.Response;
+import ru.praktikumservices.qascooter.models.Courier;
+import ru.praktikumservices.qascooter.models.CourierCredentials;
 
-public class CourierClient extends RestAssuredClient{
+public class CourierClient extends RestAssuredClient {
 
     private final String COURIER = "/courier";
     private final String LOGIN_URL = COURIER + "/login";

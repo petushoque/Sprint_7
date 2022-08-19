@@ -1,4 +1,4 @@
-package ru.praktikumservices.qascooter;
+package ru.praktikumservices.qascooter.clients;
 
 import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
