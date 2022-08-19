@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.apache.http.HttpStatus.*;
 
 public class LoginCourierTest {
     private Courier courier;
@@ -29,7 +30,7 @@ public class LoginCourierTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .assertThat()
                 .body("id", notNullValue());
     }
@@ -44,7 +45,7 @@ public class LoginCourierTest {
         response.then()
                 .log()
                 .all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()
@@ -61,7 +62,7 @@ public class LoginCourierTest {
         response.then()
                 .log()
                 .all()
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()
@@ -78,7 +79,7 @@ public class LoginCourierTest {
         response.then()
                 .log()
                 .all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()
@@ -95,7 +96,7 @@ public class LoginCourierTest {
         response.then()
                 .log()
                 .all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()

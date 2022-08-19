@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.apache.http.HttpStatus.*;
 
 @RunWith(Parameterized.class)
 public class CreateOrderTest {
@@ -32,10 +33,10 @@ public class CreateOrderTest {
     @Parameterized.Parameters
     public static Object[][] testData() {
         return new Object[][]{
-                {List.of("BLACK"), 201},
-                {List.of("GREY"), 201},
-                {List.of("BLACK", "GREY"), 201},
-                {null, 201},
+                {List.of("BLACK"), SC_CREATED},
+                {List.of("GREY"), SC_CREATED},
+                {List.of("BLACK", "GREY"), SC_CREATED},
+                {null, SC_CREATED},
         };
     }
 
@@ -47,7 +48,7 @@ public class CreateOrderTest {
         order.setColor(color);
         Response response = orderClient.post(order);
         response.then()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .assertThat()
                 .body("track", notNullValue());
         int actualCode = response.statusCode();

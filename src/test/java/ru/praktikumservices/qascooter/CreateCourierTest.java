@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.UUID;
 import static org.hamcrest.CoreMatchers.*;
+import static org.apache.http.HttpStatus.*;
 
 @Data
 public class CreateCourierTest {
@@ -30,7 +31,7 @@ public class CreateCourierTest {
                 .then()
                 .log()
                 .all()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .extract()
                 .path("ok");
         Assert.assertTrue(isCreated);
@@ -47,7 +48,7 @@ public class CreateCourierTest {
         response.then()
                 .log()
                 .all()
-                .statusCode(409)
+                .statusCode(SC_CONFLICT)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()
@@ -63,7 +64,7 @@ public class CreateCourierTest {
         response.then()
                 .log()
                 .all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()
@@ -79,7 +80,7 @@ public class CreateCourierTest {
         response.then()
                 .log()
                 .all()
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()
@@ -92,8 +93,10 @@ public class CreateCourierTest {
     public void createNewCourierWithoutFirstNameTest(){
         courier = new Courier(UUID.randomUUID().toString(), "qwerty", null);
         Response response = courierClient.createCourier(courier);
-        response.then().log().all()
-                .statusCode(400)
+        response.then()
+                .log()
+                .all()
+                .statusCode(SC_BAD_REQUEST)
                 .assertThat()
                 .body("message", notNullValue())
                 .assertThat()
